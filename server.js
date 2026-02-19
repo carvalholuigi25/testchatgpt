@@ -17,18 +17,19 @@ app.post("/chat", async (req, res) => {
   try {
     const { messages } = req.body;
 
-    // const completion = await openai.chat.completions.create({
-    //   model: "gpt-5.2",
-    //   messages,
-    // });
-    // res.json(completion.choices[0].message);
-
-    const completion = await openai.responses.create({
-      model: "gpt-5.2",
-      input: messages
+    const completion = await openai.chat.completions.create({
+      model: "gpt-5-nano",
+      messages,
     });
 
-    res.json(completion.output_text);
+    res.json(completion.choices[0].message);
+
+    // const completion = await openai.responses.create({
+    //   model: "gpt-5.2",
+    //   input: messages
+    // });
+
+    // res.json(completion.output_text);
   } catch (error) {
     res.status(500).json({ error: "Erro ao gerar resposta " + error });
   }
